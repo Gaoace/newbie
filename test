@@ -1,0 +1,54 @@
+#include <stdarg.h>
+#include <stdio.h>
+
+/* 用户需要配置的地方 */
+#define USER_DEBUG_LEVEL 3
+/*
+    ERROR:错误等级的日志    
+    WARNIG:警告等级的日志
+    DEBUG:调式等级的日志
+*/
+#if USER_DEBUG_LEVEL>=3
+    #define ERROR
+#endif 
+#if USER_DEBUG_LEVEL >= 2
+    #define WARNING
+#endif 
+#if USER_DEBUG_LEVEL >= 1
+    #define DEBUG
+#endif 
+
+void printfError(char* fmt ,...)
+{
+    va_list args;
+    va_start(args,fmt);
+    #ifdef ERROR
+        vprintf(fmt,args);
+    #endif 
+    va_end(args);
+}
+void printfWarning(char* fmt ,...)
+{
+    va_list args;
+    va_start(args,fmt);
+    #ifdef WARNING
+        vprintf(fmt,args);
+    #endif 
+    va_end(args);
+}
+void printfDebug(char* fmt ,...)
+{
+    va_list args;
+    va_start(args,fmt);
+    #ifdef DEBUG
+        vprintf(fmt,args);
+    #endif 
+    va_end(args);
+}
+void main(void)
+{
+    printfError("Error\n");
+    printfWarning("Warning\n");
+    printfDebug("Debug\n");
+}
+-----------------------------------
