@@ -1,0 +1,25 @@
+#include <stdarg.h>
+
+void printArray(int count,...)
+{
+    char var;
+    int gap,i;
+    /*创建了一个指向参数的指针*/
+    va_list args;
+    /*初始化指针*/
+    va_start(args,count);
+	/*对不定参数进行解析*/
+    for( i = 0 ; i < count ; i++)
+    {
+        printf("*args %d = %d\n",count,*(int*)args);
+        gap = (int)(sizeof(count)/sizeof(var));	//获取指针应该跳过的字节数
+        args += gap;
+    }
+	/*使用完成后释放指针为NULL*/
+    va_end(args);
+}
+void main(void)
+{
+    printArray(4,1,2,3,4);
+    printArray(5,1,2,3,4，5);
+}
